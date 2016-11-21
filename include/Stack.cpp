@@ -57,12 +57,16 @@ auto allocator<T>::construct(T * ptr, T const & value)->void
 template <typename T>
 auto allocator<T>::destroy(T * ptr)->void
 { 
-if (ptr < ptr_ || ptr >= ptr_ + size_ || map_->test(ptr-ptr_) == false)
+if (ptr < ptr_ || ptr >= ptr_ + size_ )
 {
 		throw std::out_of_range("Error");
 }
+else
+{ if (map_->test(ptr-ptr_) == false)
+{
 	ptr->~T();
 	map_->reset(ptr - ptr_);
+	}}
 
 }
 template <typename T>
